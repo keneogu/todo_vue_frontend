@@ -36,8 +36,6 @@ export default {
     async addTodo(todo) {
       const response = await axios.post('http://localhost:3000/api/v1/todos', {todo})
         this.todos.unshift(response.data)
-        // this.todos = [...this.todos, todo]
-  
     },
     async fetchTodo(id) {
       const res = await axios.get(`http://localhost:3000/api/v1/todos/${id}`)
@@ -56,14 +54,7 @@ export default {
       const updated = {...todoToToggle, completed: !todoToToggle.completed}
       console.log(updated)
       axios.put(`http://localhost:3000/api/v1/todos/${id}`,
-      {
-        updated
-      },
-      {
-        headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-      })
+      {todo: {...updated}})
       .then(res => res.data)
       .catch(e => console.error(e));
 
