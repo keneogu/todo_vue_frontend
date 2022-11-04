@@ -2,7 +2,15 @@
   <div class="w-full bg-orange-50">
     <Header title="Todos Tracker" />
     <AddTodo @add-todo="addTodo"/>
+    <div v-if="showModal">
+    <Modal theme="sale">
+      <p>{{sampleTodo}}</p>
+      <br/>
+      <button @click="toggleModal" class="bg-white text-orange-800 px-4 py-2 rounded">Close</button>
+    </Modal>
+  </div>
     <div v-if="todos.length" class="mt-8">
+      <button @click="()=>{toggleModal(); clickSample();}" class="bg-orange-800 text-white px-4 py-2 rounded-xl shadow hover:text-orange-800 hover:bg-slate-50">what should i do today</button>
       <Todos :todos="todos" @delete-todo="deleteTodo" @toggle-complete="toggleComplete"/>
     </div>
     <div v-else>
@@ -16,19 +24,27 @@ import Header from "./components/Header.vue";
 import AddTodo from "./components/AddTodo.vue";
 import Todos from "./components/Todos.vue";
 import axios from 'axios';
+import Modal from "./components/Modal.vue"
+
 export default {
   name: "App",
   components: {
     Header,
     Todos,
     AddTodo,
+    Modal
   },
   data() {
     return {
+      showModal: false,
       todos: [],
+      sampleTodo: ""
     };
   },
   methods: {
+    toggleModal() {
+      this.showModal = !this.showModal
+    },
     async fetchTodos() {
       const response = await axios.get('http://localhost:3000/api/v1/todos')
       return response.data
@@ -61,6 +77,9 @@ export default {
       this.todos = this.todos.map((todo) => 
       todo.id === id ? { ...todo, completed: !todo.completed} : todo
     )
+    },
+    clickSample() {
+      this.sampleTodo = this.todos[Math.floor(Math.random()*this.todos.length)].title
     }
   },
   async created() {
