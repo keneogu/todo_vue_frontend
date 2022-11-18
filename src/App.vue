@@ -144,6 +144,29 @@ export default {
 				}
 			})
     },
+    handleSignup: function() {
+			const URL = this.prodURL ? this.prodURL : this.devURL
+			const user = {username: this.createUN, password: this.createPW}
+			fetch(`${URL}/users`, {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(user),
+			})
+			.then(response => response.json())
+			.then(data => {
+				if(data.error) {
+					alert('Sign up unsuccessful')
+				} else {
+					this.user = data.user
+          this.token = data.token
+					this.loggedin = true
+					this.fetchTodos()
+					alert ('sign up successful')
+				}
+			})
+		},
   },
   async created() {
     const getLogin = JSON.parse(window.sessionStorage.getItem('login'))
