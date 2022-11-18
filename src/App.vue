@@ -144,6 +144,12 @@ export default {
 				}
 			})
     },
+    handleLogout: function() {
+			this.loggedin = false
+			this.user = null
+			this.token = null
+			window.sessionStorage.removeItem('login')
+		},
     handleSignup: function() {
 			const URL = this.prodURL ? this.prodURL : this.devURL
 			const user = {username: this.createUN, password: this.createPW}
