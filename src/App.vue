@@ -18,8 +18,8 @@
         <p>Loading todos...</p> 
       </div>
     </div>
-    <div v-if="!loggedin">
-      <div id="loginform">
+    <div v-if="!loggedin" class="bg-orange-50">
+      <div id="loginform" class="h-full mt-8">
 				<form v-on:submit.prevent="handleLogin">
 				<fieldset><legend>
 					Login
