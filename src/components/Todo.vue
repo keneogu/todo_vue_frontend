@@ -2,7 +2,6 @@
 	<div class="flex justify-between bg-slate-50 p-4 m-4 shadow-lg rounded" @dblclick="$emit('toggle-complete', todo.id)">
 		<div class="flex justify-between w-1/2">
 			<h3>{{todo.title}}</h3>
-			<!-- <p>{{todo.completed}}</p> -->
 		</div>
 		<div class="pl-10">
 			<i :class="[todo.completed ? 'completed' : '','fas fa-check-circle']"></i>
